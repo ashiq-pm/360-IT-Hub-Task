@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}Subscribe{% endblock %}
+
+{% block content %}
+<div class="main-container">
+    <div class="main-block">
+        <h1>Subscribe to {{ service.service_name }}</h1>
+        <p style="color: rgb(8, 116, 199);">Price with GST: <span style="color: green;">₹{{ net_price }}</span></p>
+        <div class="payment-button">
+            <form method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-success">Proceed to Payment</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

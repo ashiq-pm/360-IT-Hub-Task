@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Payment - Razorpay{% endblock %}
+
+{% block content %}
+<div class="main-container">
+    <div class="main-block">
+        <h1>Proceed with Payment for {{ service.service_name }}</h1>
+        <p style="color: rgb(8, 116, 199);">Amount: <span style="color: green;">₹{{ net_price }}</span></p>
+
+        <form action="{% url 'payment_success' %}" method="POST">
+            <script
+                src="https://checkout.razorpay.com/v1/checkout.js"
+                data-key="{{ razorpay_key }}"
+                data-amount="{{ net_price|floatformat:2 }}" 
+                data-currency="INR"
+                data-order_id="{{ order_id }}"
+                data-name="IT Services"
+                data-description="Payment for {{ service.service_name }}"
+                data-prefill.email="{{ request.user.email }}"
+                data-buttontext="Pay Now" <!-- Changing the default button text -->
+            >
+            </script>
+            <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+            <button id="rzp-button" class="pay-button">Pay with Razorpay</button>
+        </form>
+    </div>
+</div>
+
+
+{% endblock %}

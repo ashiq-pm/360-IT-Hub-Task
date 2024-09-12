@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}Services - list{% endblock %}
+
+{% block content %}
+<div class="main-container">
+    <div class="main-block">
+        <h1>Your Services</h1>
+        <div class="block1">
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'create_service' %}">Create Service</a>
+        </div>
+
+        <div class="i-container">
+            {% for service in services %}
+            <div class="item-container">
+                <div class="item-block1">
+                    <h3>{{ service.service_name }}</h3>
+                    <p style="color: rgb(105, 189, 105);">Price: {{ service.service_price }}</p>
+                </div>
+
+                <div class="item-block2">
+                    <a href="{% url 'update_service' service.pk %}"><i class="fa-regular fa-pen-to-square"></i></a>
+                    <form action="{% url 'delete_service' service.pk %}" method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit"><i class="fa-regular fa-trash-can"></i></button>
+                    </form>
+                </div>
+            </div>
+            {% empty %}
+            <p style="color: rgb(154, 188, 214);">No services available.</p>
+            {% endfor %}
+        </div>
+
+    
+    </div>
+</div>
+
+
+
+{% endblock %}
